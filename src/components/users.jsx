@@ -9,11 +9,16 @@ const Users = () => {
     }
 
     const renderPhrase = (number) => {
-        const ending = number === 2 || number === 3 || number === 4 ? 'а' : ''
-        return <h2><span className='badge bg-primary'>{number} человек{ending} тусанёт с тобой сегодня</span></h2>
+        const ending = number >= 2 && number <= 4 ? 'а' : ''
+        const decl = number > 1 ? 'у' : 'ё'
+        return (
+            <h2>
+                <span className='badge bg-primary'>{number} человек{ending} тусан{decl}т с тобой сегодня</span>
+            </h2>
+        )
     }
 
-    return users.length !== 0 ? (
+    return users.length > 0 ? (
         <>
             {renderPhrase(users.length)}
             <table className="table">
@@ -24,6 +29,7 @@ const Users = () => {
                         <th scope="col">Профессия</th>
                         <th scope="col">Встретился, раз</th>
                         <th scope="col">Оценка</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +56,7 @@ const Users = () => {
                 </tbody>
             </table>
         </>
-    ) : ''
+    ) : <h2><span className='badge bg-danger'>Никто с тобой не тусанет</span></h2>
 }
 
 export default Users
