@@ -3,6 +3,7 @@ import User from './user'
 
 const Users = ({users, ...rest}) => {
     return (
+        users.length !== 0 &&
         <table className="table">
             <thead>
                 <tr>

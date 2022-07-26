@@ -1,16 +1,16 @@
-import React from "react";
-import Quality from "./quality";
-import Bookmark from "./bookmark";
+import React from 'react'
+import Quality from './quality'
+import Bookmark from './bookmark'
 
-const User = ({_id, name, qualities, profession, completedMeetings, rate, bookmark, onDelete, onToogle}) => {
+const User = ({_id, name, qualities, profession, completedMeetings, rate, bookmark, onDelete, onToggle}) => {
     return (
         <tr>
             <td>{name}</td>
             <td>{qualities.map(({_id, name, color}) => <Quality key={_id} name={name} color={color} />)}</td>
             <td>{profession.name}</td>
             <td>{completedMeetings}</td>
-            <td>{`${rate}/5`}</td>
-            <td><Bookmark status={bookmark} id={_id} onToogle={onToogle} /></td>
+            <td>{rate}/5</td>
+            <td><Bookmark status={bookmark} id={_id} onToggle={onToggle} /></td>
             <td>
                 <button 
                     type="button"
