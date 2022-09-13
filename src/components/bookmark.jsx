@@ -1,21 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Bookmark = ({ status, id, onToggle }) => {
+const BookMark = ({ status, ...rest }) => {
   return (
     <span>
-      <i
-        className={`bi bi-emoji-smile${status ? "-fill" : ""}`}
-        onClick={() => onToggle(id)}
-      ></i>
+      <i className={`bi bi-emoji-smile${status ? "-fill" : ""}`}></i>
     </span>
   );
 };
 
-Bookmark.propTypes = {
-  status: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
-  onToggle: PropTypes.func.isRequired
+BookMark.propTypes = {
+  status: PropTypes.bool
 };
 
-export default Bookmark;
+export default BookMark;
