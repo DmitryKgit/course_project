@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const BookMark = ({ status, ...rest }) => {
   return (
-    <span>
+    <span {...rest}>
       <i className={`bi bi-emoji-smile${status ? "-fill" : ""}`}></i>
     </span>
   );
