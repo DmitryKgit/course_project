@@ -17,8 +17,7 @@ const UserTable = ({
   const columns = {
     name: {
       path: "name",
-      name: "Имя",
-      order: <i className="bi bi-caret-down-fill"></i>
+      name: "Имя"
     },
     qualities: {
       name: "Качества",
@@ -27,14 +26,12 @@ const UserTable = ({
     professions: { path: "profession.name", name: "Профессия", order: "" },
     completedMeetings: {
       path: "completedMeetings",
-      name: "Встретился, раз",
-      order: ""
+      name: "Встретился, раз"
     },
     rate: { path: "rate", name: "Оценка", order: "" },
     bookmark: {
       path: "bookmark",
       name: "Избранное",
-      order: "",
       component: (user) => (
         <BookMark
           status={user.bookmark}

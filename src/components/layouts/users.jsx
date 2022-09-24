@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 // import PropTypes from "prop-types";
-import Pagination from "./pagination";
-import { paginate } from "../utils/paginate";
-import api from "../api";
-import GroupList from "./groupList";
-import SearchStatus from "./searchStatus";
-import UserTable from "./usersTable";
+import Pagination from "../pagination";
+import { paginate } from "../../utils/paginate";
+import api from "../../api";
+import GroupList from "../groupList";
+import SearchStatus from "../searchStatus";
+import UserTable from "../usersTable";
+import User from "../user";
 import _ from "lodash";
+import { useParams } from "react-router-dom";
 
 const Users = () => {
   const pageSize = 12;
@@ -17,6 +19,7 @@ const Users = () => {
   const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
 
   const [users, setUsers] = useState();
+  const { userId } = useParams();
 
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data));
@@ -75,6 +78,9 @@ const Users = () => {
       setSelectedProf();
     };
 
+    if (userId) {
+      return <User />;
+    }
     return (
       <div className="d-flex">
         {professions && (
