@@ -79,7 +79,7 @@ const Users = () => {
     };
 
     if (userId) {
-      return <User />;
+      return <User users={users} id={userId} />;
     }
     return (
       <div className="d-flex">
