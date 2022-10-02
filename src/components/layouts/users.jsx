@@ -20,6 +20,11 @@ const Users = () => {
 
   const [users, setUsers] = useState();
   const { userId } = useParams();
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    api.users.getById(userId).then((data) => setUser(data));
+  }, []);
 
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data));
@@ -52,6 +57,10 @@ const Users = () => {
     setCurrentPage(pageIndex);
   };
 
+  const handleUserChange = (id) => {
+    setUser(users.find((user) => user._id === id));
+  };
+
   const handleProfessionSelect = (item) => {
     setSelectedProf(item);
   };
@@ -79,7 +88,7 @@ const Users = () => {
     };
 
     if (userId) {
-      return <User users={users} id={userId} />;
+      return <User user={user} />;
     }
     return (
       <div className="d-flex">
@@ -105,6 +114,7 @@ const Users = () => {
               selectedSort={sortBy}
               onDelete={handleDelete}
               onToggleBookMark={handleToggleBookMark}
+              onUserChange={handleUserChange}
             />
           )}
           <div className="d-flex justify-content-center">
