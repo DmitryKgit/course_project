@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 // import PropTypes from "prop-types";
 import Pagination from "../pagination";
 import { paginate } from "../../utils/paginate";
+import { search } from "../../utils/search";
 import api from "../../api";
 import GroupList from "../groupList";
 import SearchStatus from "../searchStatus";
+import SearchInput from "../searchInput";
 import UserTable from "../usersTable";
 import User from "../user";
 import _ from "lodash";
@@ -17,10 +19,10 @@ const Users = () => {
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
   const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-
   const [users, setUsers] = useState();
   const { userId } = useParams();
   const [user, setUser] = useState();
+  const [searchedString, setSearchedString] = useState("");
 
   useEffect(() => {
     api.users.getById(userId).then((data) => setUser(data));
@@ -29,6 +31,10 @@ const Users = () => {
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data));
   }, []);
+
+  const handleChangeSearch = (e) => {
+    setSearchedString(e.target.value);
+  };
 
   const handleDelete = (id) => {
     setUsers((prevState) => prevState.filter((user) => user._id !== id));
@@ -78,10 +84,9 @@ const Users = () => {
       : users;
 
     const count = filteredUsers.length;
-
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
-
     const userCrop = paginate(sortedUsers, currentPage, pageSize);
+    const findUsers = search(userCrop, searchedString);
 
     const clearFilter = () => {
       setSelectedProf();
@@ -106,10 +111,10 @@ const Users = () => {
         )}
         <div className="d-flex flex-column">
           <SearchStatus usersLen={count} />
-
+          <SearchInput onChangeSearch={handleChangeSearch} />
           {count !== 0 && (
             <UserTable
-              users={userCrop}
+              users={findUsers}
               onSort={handleSort}
               selectedSort={sortBy}
               onDelete={handleDelete}
