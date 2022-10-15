@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import _ from "lodash";
 
-const TableBody = ({ data, columns, onUserChange }) => {
+const TableBody = ({ data, columns }) => {
   const renderContent = (item, column) => {
     if (columns[column].component) {
       const component = columns[column].component;
@@ -19,20 +18,9 @@ const TableBody = ({ data, columns, onUserChange }) => {
     <tbody>
       {data.map((item) => (
         <tr key={item._id}>
-          {Object.keys(columns).map((column) => {
-            const tdContent =
-              columns[column].path === "name" ? (
-                <Link
-                  onClick={() => onUserChange(item._id)}
-                  to={`users/${item._id}`}
-                >
-                  {renderContent(item, column)}
-                </Link>
-              ) : (
-                renderContent(item, column)
-              );
-            return <td key={column}>{tdContent}</td>;
-          })}
+          {Object.keys(columns).map((column) => (
+            <td key={column}>{renderContent(item, column)}</td>
+          ))}
         </tr>
       ))}
     </tbody>
@@ -41,8 +29,7 @@ const TableBody = ({ data, columns, onUserChange }) => {
 
 TableBody.propTypes = {
   data: PropTypes.array.isRequired,
-  columns: PropTypes.object.isRequired,
-  onUserChange: PropTypes.func.isRequired
+  columns: PropTypes.object.isRequired
 };
 
 export default TableBody;
