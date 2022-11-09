@@ -7,12 +7,15 @@ import { useHistory } from "react-router-dom";
 const UserPage = ({ userId }) => {
   const history = useHistory();
   const [user, setUser] = useState();
+
   useEffect(() => {
     api.users.getById(userId).then((data) => setUser(data));
   }, []);
+
   const handleClick = () => {
-    history.push(`/users/${userId}/edit`);
+    history.push(history.location.pathname + "/edit");
   };
+
   if (user) {
     return (
       <div>
